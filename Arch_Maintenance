@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# USED FOR ARCH LINUX MAINTENANCE
+
+
+# FAILED SYSTEMD SERVICES
+    # Check systemd failed services
+        systemctl --failed
+
+    # Log files check
+        sudo journalctl -p 3 -xb
+
+# UPDATE
+#sudo pacman -Syu
+
+# YAY UPDATE
+        yay
+
+# DELETES PACMAN CACHE OF UNUSED PACKAGES
+#sudo pacman -Sc
+
+# DELETES YAY CACHE OF UNUSED PACKAGES
+        yay -Sc
+
+# DELETE ALL PACKAGES FROM PACMAN CACHE
+#sudo pacman -Scc
+
+# DELETE ALL PACKAGES FROM YAY CACHE
+#yay -Scc
+
+# DELETE UNWANTED DEPENDENCIES
+        yay -Yc
+
+# CHECK ORPHAN PACKAGES
+        pacman -Qtdq
+
+# REMOVE ORPHAN PACKAGES
+#sudo pacman -Rns $(pacman -Qtdq)
+        sudo pacman -Qtdq | pacman -Rns
+
+# CLEAN THE CACHE
+        rm -rf .cache/*
+
+# CLEAN THE JOURNAL
+        sudo journalctl --vacuum-time=2weeks
+
+# UPDATE MIRRORLIST
+        sudo reflector -c "United States" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist --verbose
